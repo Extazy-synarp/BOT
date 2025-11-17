@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌸 RASCA by Extazy - Premium Management System</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body data-theme="dark">
+    <!-- FOND ANIMÉ 3D -->
+    <div class="animated-background">
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="gradient-orb orb-3"></div>
+        <div class="particles-container" id="particlesContainer"></div>
+    </div>
+
+    <!-- ÉCRAN DE CONNEXION -->
+    <div id="loginScreen" class="login-container">
+        <div class="login-box">
+            <div class="extazy-logo">
+                <div class="logo-circle">
+                    <i class="fas fa-crown"></i>
+                </div>
+                <div class="logo-rings">
+                    <div class="ring ring-1"></div>
+                    <div class="ring ring-2"></div>
+                    <div class="ring ring-3"></div>
+                </div>
+            </div>
+            
+            <div class="login-header">
+                <h1 class="glitch-text" data-text="EXTAZY">EXTAZY</h1>
+                <h2>🌸 RASCA - Premium System v3.0</h2>
+                <p>Plateforme de gestion opérationnelle avancée</p>
+                <div class="header-decoration">
+                    <span class="deco-line"></span>
+                    <i class="fas fa-star"></i>
+                    <span class="deco-line"></span>
+                </div>
+            </div>
+            
+            <form id="loginForm" class="login-form">
+                <div class="input-group">
+                    <i class="fas fa-key"></i>
+                    <input type="password" id="apiKeyInput" placeholder="Entrez la clé API secrète" required>
+                    <div class="input-underline"></div>
+                </div>
+                <button type="submit" class="btn-login">
+                    <span>Connexion Sécurisée</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </form>
+            
+            <div class="login-footer">
+                <div class="footer-badge">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Développé par <strong>Extazy</strong></span>
+                </div>
+                <div class="footer-version">v3.0.0 Ultra Premium</div>
+            </div>
+
+            <div class="floating-particles">
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DASHBOARD -->
+    <div id="dashboard" class="dashboard" style="display: none;">
+        
+        <!-- HEADER -->
+        <header class="header">
+            <div class="header-left">
+                <div class="brand-container">
+                    <div class="brand-icon">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <div class="brand-text">
+                        <h1>EXTAZY</h1>
+                        <span>RASCA Premium System</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="header-center">
+                <div class="quick-stats">
+                    <div class="quick-stat">
+                        <i class="fas fa-clipboard-list"></i>
+                        <span id="headerOpsCount">0</span>
+                        <small>Opérations</small>
+                    </div>
+                    <div class="quick-stat">
+                        <i class="fas fa-users"></i>
+                        <span id="headerMembersCount">0</span>
+                        <small>Membres</small>
+                    </div>
+                    <div class="quick-stat">
+                        <i class="fas fa-check-circle"></i>
+                        <span id="headerResponseRate">0%</span>
+                        <small>Taux réponse</small>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="header-right">
+                <button class="theme-toggle" onclick="toggleTheme()" title="Changer de thème">
+                    <i class="fas fa-moon"></i>
+                </button>
+                
+                <div class="notifications-bell" onclick="toggleNotificationsPanel()">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge" id="notificationBadge">0</span>
+                </div>
+                
+                <div class="bot-status" id="botStatus">
+                    <span class="status-dot"></span>
+                    <div class="status-info">
+                        <span class="status-label">Bot Status</span>
+                        <span class="status-text">Connecté</span>
+                    </div>
+                </div>
+                
+                <button class="btn-logout" onclick="logout()">
+                    <i class="fas fa-power-off"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- SIDEBAR -->
+        <nav class="sidebar">
+            <div class="sidebar-brand">
+                <div class="sidebar-logo">
+                    <i class="fas fa-crown"></i>
+                </div>
+                <div class="sidebar-title">
+                    <strong>EXTAZY</strong>
+                    <span>Control Panel</span>
+                </div>
+            </div>
+
+            <div class="sidebar-divider">
+                <span>NAVIGATION</span>
+            </div>
+
+            <div class="nav-item active" onclick="showSection('dashboard')">
+                <div class="nav-icon">
+                    <i class="fas fa-th-large"></i>
+                </div>
+                <span>Dashboard</span>
+                <div class="nav-indicator"></div>
+            </div>
+
+            <div class="nav-item" onclick="showSection('operations')">
+                <div class="nav-icon">
+                    <i class="fas fa-list"></i>
+                </div>
+                <span>Opérations</span>
+                <div class="nav-badge" id="navOpsBadge">0</div>
+                <div class="nav-indicator"></div>
+            </div>
+            
+            <div class="nav-item" onclick="showSection('create')">
+                <div class="nav-icon">
+                    <i class="fas fa-plus-circle"></i>
+                </div>
+                <span>Créer</span>
+                <div class="nav-indicator"></div>
+            </div>
+            
+            <div class="nav-item" onclick="showSection('calendar')">
+                <div class="nav-icon">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <span>Calendrier</span>
+                <div class="nav-indicator"></div>
+            </div>
+            
+            <div class="nav-item" onclick="showSection('members')">
+                <div class="nav-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <span>Membres</span>
+                <div class="nav-indicator"></div>
+            </div>
+            
+            <div class="nav-item" onclick="showSection('stats')">
+                <div class="nav-icon">
+                    <i class="fas fa-chart-bar"></i>
+                </div>
+                <span>Statistiques</span>
+                <div class="nav-indicator"></div>
+            </div>
+
+            <div class="sidebar-divider">
+                <span>HISTORIQUE</span>
+            </div>
+
+            <div class="nav-item" onclick="showSection('logs15h')">
+                <div class="nav-icon">
+                    <i class="fas fa-history"></i>
+                </div>
+                <span>Logs 15h</span>
+                <div class="nav-indicator"></div>
+            </div>
+            
+            <div class="nav-item" onclick="showSection('logs21h')">
+                <div class="nav-icon">
+                    <i class="fas fa-history"></i>
+                </div>
+                <span>Logs 21h</span>
+                <div class="nav-indicator"></div>
+            </div>
+
+            <div class="sidebar-divider">
+                <span>OUTILS</span>
+            </div>
+
+            <div class="nav-item" onclick="showSection('settings')">
+                <div class="nav-icon">
+                    <i class="fas fa-cog"></i>
+                </div>
+                <span>Paramètres</span>
+                <div class="nav-indicator"></div>
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-card">
+                    <i class="fas fa-sparkles"></i>
+                    <h4>Ultra Premium</h4>
+                    <p>Créé par Extazy</p>
+                    <div class="sidebar-card-shine"></div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+            
+            <!-- ═════════════════════════════════════════ -->
+            <!-- 🎯 SECTION: DASHBOARD PRINCIPAL -->
+            <!-- ═════════════════════════════════════════ -->
+            <section id="dashboardSection" class="content-section active">
+                <div class="section-header">
+                    <div class="section-title">
+                        <div class="title-icon">
+                            <i class="fas fa-th-large"></i>
+                        </div>
+                        <div class="title-text">
+                            <h2>Dashboard Principal</h2>
+                            <p>Vue d'ensemble de votre système RASCA</p>
+                        </div>
+                    </div>
+                    <div class="header-actions">
+                        <button class="btn-primary" onclick="refreshDashboard()">
+                            <i class="fas fa-sync-alt"></i>
+                            <span>Actualiser</span>
+                        </button>
+                        <button class="btn-primary" onclick="exportData()">
+                            <i class="fas fa-download"></i>
+                            <span>Exporter</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- KPIS Principaux -->
+                <div class="kpi-grid">
+                    <div class="kpi-card">
+                        <div class="kpi-icon" style="background: linear-gradient(135deg, #00D9FF, #00B4CC);">
+                            <i class="fas fa-clipboard-list"></i>
+                        </div>
+                        <div class="kpi-content">
+                            <h3 id="kpiTotalOps">0</h3>
+                            <p>Opérations Actives</p>
+                            <div class="kpi-trend positive">
+                                <i class="fas fa-arrow-up"></i>
+                                <span>+12%</span>
+                            </div>
+                        </div>
+                        <div class="kpi-chart">
+                            <canvas id="opsChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="kpi-card">
+                        <div class="kpi-icon" style="background: linear-gradient(135deg, #00FF94, #00CC77);">
+                            <i class="fas fa-user-check"></i>
+                        </div>
+                        <div class="kpi-content">
+                            <h3 id="kpiParticipation">0%</h3>
+                            <p>Taux de Participation</p>
+                            <div class="kpi-trend positive">
+                                <i class="fas fa-arrow-up"></i>
+                                <span>+5%</span>
+                            </div>
+                        </div>
+                        <div class="kpi-chart">
+                            <canvas id="participationChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="kpi-card">
+                        <div class="kpi-icon" style="background: linear-gradient(135deg, #FF4FC3, #CC3F9C);">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="kpi-content">
+                            <h3 id="kpiActiveMembers">0</h3>
+                            <p>Membres Actifs</p>
+                            <div class="kpi-trend stable">
+                                <i class="fas fa-minus"></i>
+                                <span>0%</span>
+                            </div>
+                        </div>
+                        <div class="kpi-chart">
+                            <canvas id="membersChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="kpi-card">
+                        <div class="kpi-icon" style="background: linear-gradient(135deg, #FFB800, #FF8C00);">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="kpi-content">
+                            <h3 id="kpiAvgResponse">2.5h</h3>
+                            <p>Temps Moyen Réponse</p>
+                            <div class="kpi-trend negative">
+                                <i class="fas fa-arrow-down"></i>
+                                <span>-8%</span>
+                            </div>
+                        </div>
+                        <div class="kpi-chart">
+                            <canvas id="responseChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Graphiques et Widgets -->
+                <div class="dashboard-grid">
+                    <!-- Graphique Principal -->
+                    <div class="dashboard-widget large">
+                        <div class="widget-header">
+                            <h3><i class="fas fa-chart-area"></i> Activité des 7 derniers jours</h3>
+                            <div class="widget-controls">
+                                <button class="widget-btn active">7J</button>
+                                <button class="widget-btn">30J</button>
+                                <button class="widget-btn">3M</button>
+                            </div>
+                        </div>
+                        <div class="widget-body">
+                            <canvas id="mainActivityChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Activité Récente -->
+                    <div class="dashboard-widget">
+                        <div class="widget-header">
+                            <h3><i class="fas fa-stream"></i> Activité Récente</h3>
+                        </div>
+                        <div class="widget-body">
+                            <div class="activity-timeline" id="recentActivity">
+                                <div class="timeline-item">
+                                    <div class="timeline-dot success"></div>
+                                    <div class="timeline-content">
+                                        <span class="timeline-time">Il y a 2 min</span>
+                                        <p><strong>John</strong> a réagi ✅ Présent</p>
+                                    </div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-dot info"></div>
+                                    <div class="timeline-content">
+                                        <span class="timeline-time">Il y a 5 min</span>
+                                        <p>Nouvelle opération créée pour <strong>21h00</strong></p>
+                                    </div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-dot warning"></div>
+                                    <div class="timeline-content">
+                                        <span class="timeline-time">Il y a 12 min</span>
+                                        <p><strong>Mike</strong> a réagi ⏰ En retard</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Top Membres -->
+                    <div class="dashboard-widget">
+                        <div class="widget-header">
+                            <h3><i class="fas fa-trophy"></i> Top Membres</h3>
+                        </div>
+                        <div class="widget-body">
+                            <div class="leaderboard" id="topMembers">
+                                <div class="leaderboard-item">
+                                    <div class="rank gold">1</div>
+                                    <img src="https://ui-avatars.com/api/?name=John+Doe&background=00D9FF&color=fff" class="member-avatar">
+                                    <div class="member-info">
+                                        <strong>John Doe</strong>
+                                        <span>98% présence</span>
+                                    </div>
+                                    <div class="member-score">245</div>
+                                </div>
+                                <div class="leaderboard-item">
+                                    <div class="rank silver">2</div>
+                                    <img src="https://ui-avatars.com/api/?name=Mike+Smith&background=00FF94&color=fff" class="member-avatar">
+                                    <div class="member-info">
+                                        <strong>Mike Smith</strong>
+                                        <span>95% présence</span>
+                                    </div>
+                                    <div class="member-score">230</div>
+                                </div>
+                                <div class="leaderboard-item">
+                                    <div class="rank bronze">3</div>
+                                    <img src="https://ui-avatars.com/api/?name=Alex+Brown&background=FF4FC3&color=fff" class="member-avatar">
+                                    <div class="member-info">
+                                        <strong>Alex Brown</strong>
+                                        <span>92% présence</span>
+                                    </div>
+                                    <div class="member-score">215</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Prochaines Opérations -->
+                    <div class="dashboard-widget">
+                        <div class="widget-header">
+                            <h3><i class="fas fa-calendar-check"></i> Prochaines Opérations</h3>
+                        </div>
+                        <div class="widget-body">
+                            <div class="upcoming-ops" id="upcomingOps">
+                                <div class="upcoming-op-item">
+                                    <div class="op-time">
+                                        <div class="op-hour">15:00</div>
+                                        <div class="op-date">Aujourd'hui</div>
+                                    </div>
+                                    <div class="op-info">
+                                        <h4>Opération Villa</h4>
+                                        <div class="op-stats-mini">
+                                            <span class="stat-mini success">12 ✅</span>
+                                            <span class="stat-mini danger">3 ❌</span>
+                                            <span class="stat-mini warning">2 ⏰</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Répartition des Réponses -->
+                    <div class="dashboard-widget">
+                        <div class="widget-header">
+                            <h3><i class="fas fa-chart-pie"></i> Répartition des Réponses</h3>
+                        </div>
+                        <div class="widget-body">
+                            <canvas id="responsePieChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-footer">
+                    <i class="fas fa-code"></i>
+                    <span>Powered by <strong>Extazy</strong> Development</span>
+                </div>
+            </section>
+
+            <!-- ═════════════════════════════════════════ -->
+            <!-- 📋 SECTION: OPÉRATIONS -->
+            <!-- ═════════════════════════════════════════ -->
+            <section id="operationsSection" class="content-section">
+                <div class="section-header">
+                    <div class="section-title">
+                        <div class="title-icon">
+                            <i class="fas fa-list"></i>
+                        </div>
+                        <div class="title-text">
+                            <h2>Opérations Actives</h2>
+                            <p>Gérez toutes vos opérations en temps réel</p>
+                        </div>
+                    </div>
+                    <div class="header-actions">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="searchOperations" placeholder="Rechercher...">
+                        </div>
+                        <select class="filter-select" id="filterOperations">
+                            <option value="all">Toutes</option>
+                            <option value="15h">15h</option>
+                            <option value="21h">21h</option>
+                        </select>
+                        <button class="btn-primary" onclick="loadOperations()">
+                            <i class="fas fa-sync-alt"></i>
+                            <span>Actualiser</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="operationsList" class="operations-grid"></div>
+
+                <div class="section-footer">
+                    <i class="fas fa-code"></i>
+                    <span>Powered by <strong>Extazy</strong> Development</span>
+                </div>
+            </section>
+
+            <!-- ═════════════════════════════════════════ -->
+            <!-- ✨ SECTION: CRÉER UNE OPÉRATION -->
+            <!-- ═════════════════════════════════════════ -->
+            <section id="createSection" class="content-section">
+                <div class="section-header">
+                    <div class="section-title">
+                        <div class="title-icon">
+                            <i class="fas fa-plus-circle"></i>
+                        </div>
+                        <div class="title-text">
+                            <h2>Créer une Opération</h2>
+                            <p>Planifiez une nouvelle opération RASCA</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="create-form-container">
+                    <div class="create-form">
+                        <div class="form-step">
+                            <div class="step-number">1</div>
+                            <div class="form-group">
+                                <label>
+                                    <i class="fas fa-hashtag"></i>
+                                    Canal Discord
+                                </label>
+                                <select id="channelSelect" class="form-control">
+                                    <option value="">Chargement...</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-step">
+                            <div class="step-number">2</div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>
+                                        <i class="fas fa-calendar"></i>
+                                        Date de l'opération
+                                    </label>
+                                    <select id="dateSelect" class="form-control">
+                                        <option value="today">📅 Aujourd'hui</option>
+                                        <option value="tomorrow">📆 Demain</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>
+                                        <i class="fas fa-clock"></i>
+                                        Heure de rassemblement
+                                    </label>
+                                    <select id="heureSelect" class="form-control">
+                                        <option value="15:00">🕒 15h00</option>
+                                        <option value="21:00">🕘 21h00</option>
+                                        <option value="custom">⏰ Personnalisée</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="customHeureGroup" style="display: none;">
+                            <label>
+                                <i class="fas fa-clock"></i>
+                                Heure personnalisée
+                            </label>
+                            <input type="text" id="customHeure" class="form-control" placeholder="Exemple: 18:30">
+                        </div>
+
+                        <button class="btn-create" onclick="createOperation()">
+                            <span class="btn-shine"></span>
+                            <i class="fas fa-rocket"></i>
+                            <span>Lancer l'opération</span>
+                        </button>
+                    </div>
+
+                    <div class="create-preview">
+                        <div class="preview-card">
+                            <div class="preview-header">
+                                <i class="fas fa-eye"></i>
+                                <span>Aperçu</span>
+                            </div>
+                            <div class="preview-embed">
+                                <div class="embed-title">🌸 𝐏𝐑𝐄𝐒𝐄𝐍𝐂𝐄 𝐎𝐏𝐄𝐑𝐀𝐓𝐈𝐎𝐍 𝐑𝐀𝐒𝐂𝐀 💪</div>
+                                <div class="embed-content">
+                                    <p><strong>📅 Date :</strong> JJ/MM/AAAA</p>
+                                    <p><strong>🕓 Heure :</strong> HH:MM</p>
+                                    <p><strong>📍 Lieu :</strong> Villa</p>
+                                </div>
+                                <div class="embed-footer">
+                                    <i class="fas fa-crown"></i>
+                                    Bot créé par Extazy
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-footer">
+                    <i class="fas fa-code"></i>
+                    <span>Powered by <strong>Extazy</strong> Development</span>
+                </div>
+            </section>
+
+            <!-- ═════════════════════════════════════════ -->
+            <!-- 📅 SECTION: CALENDRIER -->
+            <!-- ═════════════════════════════════════════ -->
+            <section id="calendarSection" class="content-section">
+                <div class="section-header">
+                    <div class="section-title">
+                        <div class="title-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div class="title-text">
+                            <h2>Calendrier des Opérations</h2>
+                            <p>Vue calendrier de toutes vos opérations</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="calendar-container">
+                    <div class="calendar-header">
+                        <button class="calendar-nav" onclick="previousMonth()">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <h3 id="currentMonth">Janvier 2025</h3>
+                        <button class="calendar-nav" onclick="nextMonth()">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                    <div class="calendar-grid" id="calendarGrid">
+                        <!-- Généré dynamiquement -->
+                    </div>
+                </div>
+
+                <div class="section-footer">
+                    <i class="fas fa-code"></i>
+                    <span>Powered by <strong>Extazy</strong> Development</span>
+                </div>
+            </section>
+
+            <!-- ═════════════════════════════════════════ -->
+            <!-- 👥 SECTION: MEMBRES -->
+            <!-- ═════════════════════════════════════════ -->
+            <section id="membersSection" class="content-section">
+                <div class="section-header">
+                    <div class="section-title">
+                        <div class="title-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="title-text">
+                            <h2>Gestion des Membres</h2>
+                            <p>Classement et statistiques des membres</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="members-container">
+                    <div class="members-stats-grid">
+                        <div class="member-stat-card">
+                            <i class="fas fa-users"></i>
+                            <h3 id="totalMembersCount">0</h3>
+                            <p>Total Membres</p>
+                        </div>
+                        <div class="member-stat-card">
+                            <i class="fas fa-user-check"></i>
+                            <h3 id="activeMembersCount">0</h3>
+                            <p>Membres Actifs</p>
+                        </div>
+                        <div class="member-stat-card">
+                            <i class="fas fa-percentage"></i>
+                            <h3 id="avgParticipationRate">0%</h3>
+                            <p>Participation Moyenne</p>
+                        </div>
+                    </div>
+
+                    <div class="members-leaderboard" id="fullLeaderboard">
+                        <!-- Généré dynamiquement -->
+                    </div>
+                </div>
+
+                <div class="section-footer">
+                    <i class="fas fa-code"></i>
+                    <span>Powered by <strong>Extazy</strong> Development</span>
+                </div>
+            </section>
+
+            <!-- ═════════════════════════════════════════ -->
+            <!-- 📊 SECTION: STATISTIQUES -->
+            <!-- ═════════════════════════════════════════ -->
+            <section id="statsSection" class="content-section">
+                <div class="section-header">
+                    <div class="section-title">
+                        <div class="title-icon">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                        <div class="title-text">
+                            <h2>Statistiques Avancées</h2>
+                            <p>Analyses détaillées de votre serveur</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-background"></div>
+                        <div class="stat-icon" style="background: linear-gradient(135deg, #00D9FF, #00B4CC);">
+                            <i class="fas fa-clipboard-list"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="statTotalOps">0</h3>
+                            <p>Opérations actives</p>
+                        </div>
+                        <div class="stat-shine"></div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-background"></div>
+                        <div class="stat-icon" style="background: linear-gradient(135deg, #00FF94, #00CC77);">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="statMembers">0</h3>
+                            <p>Membres sur le serveur</p>
+                        </div>
+                        <div class="stat-shine"></div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-background"></div>
+                        <div class="stat-icon" style="background: linear-gradient(135deg, #FF4FC3, #CC3F9C);">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="statUptime">0h</h3>
+                            <p>Temps de fonctionnement</p>
+                        </div>
+                        <div class="stat-shine"></div>
+                    </div>
+                </div>
+
+                <div class="charts-grid">
+                    <div class="chart-card">
+                        <h3><i class="fas fa-chart-line"></i> Évolution des Présences</h3>
+                        <canvas id="presenceEvolutionChart"></canvas>
+                    </div>
+                    <div class="chart-card">
+                        <h3><i class="fas fa-chart-bar"></i> Répartition par Heure</h3>
+                        <canvas id="hourDistributionChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="server-info-card" id="serverInfo"></div>
+
+                <div class="extazy-watermark">
+                    <div class="watermark-content">
+                        <div class="watermark-icon">
+                            <i class="fas fa-crown"></i>
+                        </div>
+                        <div class="watermark-text">
+                            <h3>EXTAZY DEVELOPMENT</h3>
+                            <p>Ultra Premium Bot Management System v3.0</p>
+                        </div>
+                        <div class="watermark-badge">
+                            <i class="fas fa-certificate"></i>
+                            <span>PREMIUM</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-footer">
+                    <i class="fas fa-code"></i>
+                    <span>Powered by <strong>Extazy</strong> Development</span>
+                </div>
+            </section>
+
+            <!-- ═════════════════════════════════════════ -->
+            <!-- 📋 SECTION: LOGS 15H -->
+            <!-- ═════════════════════════════════════════ -->
+            <section id="logs15hSection" class="content-section">
+                <div class="section-header">
+                    <div class="section-title">
+                        <div class="title-icon" style="background: linear-gradient(135deg, #00D9FF, #00B4CC);">
+                            <i class="fas fa-history"></i>
+                        </div>
+                        <div class="title-text">
+                            <h2>Logs des Opérations 15h</h2>
+                            <p>Historique complet des actions pour les opérations de 15h</p>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 10px;">
+                        <button class="btn-primary" onclick="loadLogs('15h')">
+                            <i class="fas fa-sync-alt"></i>
+                            <span>Actualiser</span>
+                        </button>
+                        <button class="btn-danger" onclick="clearLogs('15h')">
+                            <i class="fas fa-trash"></i>
+                            <span>Effacer</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="logs-stats">
+                    <div class="log-stat-card">
+                        <i class="fas fa-clipboard-list"></i>
+                        <div>
+                            <span id="logs15hCount">0</span>
+                            <p>Total des logs</p>
+                        </div>
+                    </div>
+                    <div class="log-stat-card">
+                        <i class="fas fa-plus-circle"></i>
+                        <div>
+                            <span id="logs15hAdded">0</span>
+                            <p>Réactions ajoutées</p>
+                        </div>
+                    </div>
+                    <div class="log-stat-card">
+                        <i class="fas fa-minus-circle"></i>
+                        <div>
+                            <span id="logs15hRemoved">0</span>
+                            <p>Réactions retirées</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="logs-container" id="logs15hContainer">
+                    <div class="logs-empty">
+                        <i class="fas fa-inbox"></i>
+                        <h3>Aucun log disponible</h3>
+                        <p>Les actions seront enregistrées ici</p>
+                    </div>
+                </div>
+
+                <div class="section-footer">
+                    <i class="fas fa-code"></i>
+                    <span>Powered by <strong>Extazy</strong> Development</span>
+                </div>
+            </section>
+
+            <!-- ═════════════════════════════════════════ -->
+            <!-- 📋 SECTION: LOGS 21H -->
+            <!-- ═════════════════════════════════════════ -->
+            <section id="logs21hSection" class="content-section">
+                <div class="section-header">
+                    <div class="section-title">
+                        <div class="title-icon" style="background: linear-gradient(135deg, #FF4FC3, #CC3F9C);">
+                            <i class="fas fa-history"></i>
+                        </div>
+                        <div class="title-text">
+                            <h2>Logs des Opérations 21h</h2>
+                            <p>Historique complet des actions pour les opérations de 21h</p>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 10px;">
+                        <button class="btn-primary" onclick="loadLogs('21h')">
+                            <i class="fas fa-sync-alt"></i>
+                            <span>Actualiser</span>
+                        </button>
+                        <button class="btn-danger" onclick="clearLogs('21h')">
+                            <i class="fas fa-trash"></i>
+                            <span>Effacer</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="logs-stats">
+                    <div class="log-stat-card">
+                        <i class="fas fa-clipboard-list"></i>
+                        <div>
+                            <span id="logs21hCount">0</span>
+                            <p>Total des logs</p>
+                        </div>
+                    </div>
+                    <div class="log-stat-card">
+                        <i class="fas fa-plus-circle"></i>
+                        <div>
+                            <span id="logs21hAdded">0</span>
+                            <p>Réactions ajoutées</p>
+                        </div>
+                    </div>
+                    <div class="log-stat-card">
+                        <i class="fas fa-minus-circle"></i>
+                        <div>
+                            <span id="logs21hRemoved">0</span>
+                            <p>Réactions retirées</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="logs-container" id="logs21hContainer">
+                    <div class="logs-empty">
+                        <i class="fas fa-inbox"></i>
+                        <h3>Aucun log disponible</h3>
+                        <p>Les actions seront enregistrées ici</p>
+                    </div>
+                </div>
+
+                <div class="section-footer">
+                    <i class="fas fa-code"></i>
+                    <span>Powered by <strong>Extazy</strong> Development</span>
+                </div>
+            </section>
+
+            <!-- ═════════════════════════════════════════ -->
+            <!-- ⚙️ SECTION: PARAMÈTRES -->
+            <!-- ═════════════════════════════════════════ -->
+            <section id="settingsSection" class="content-section">
+                <div class="section-header">
+                    <div class="section-title">
+                        <div class="title-icon">
+                            <i class="fas fa-cog"></i>
+                        </div>
+                        <div class="title-text">
+                            <h2>Paramètres</h2>
+                            <p>Configuration de votre système</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="settings-container">
+                    <div class="settings-card">
+                        <h3><i class="fas fa-paint-brush"></i> Apparence</h3>
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <strong>Thème</strong>
+                                <p>Choisir entre le mode clair et sombre</p>
+                            </div>
+                            <div class="theme-switcher">
+                                <button class="theme-option active" data-theme="dark">
+                                    <i class="fas fa-moon"></i> Sombre
+                                </button>
+                                <button class="theme-option" data-theme="light">
+                                    <i class="fas fa-sun"></i> Clair
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="settings-card">
+                        <h3><i class="fas fa-bell"></i> Notifications</h3>
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <strong>Notifications en temps réel</strong>
+                                <p>Recevoir des alertes pour les nouvelles actions</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="settings-card">
+                        <h3><i class="fas fa-download"></i> Export de Données</h3>
+                        <div class="export-buttons">
+                            <button class="btn-primary" onclick="exportData('json')">
+                                <i class="fas fa-file-code"></i> Export JSON
+                            </button>
+                            <button class="btn-primary" onclick="exportData('csv')">
+                                <i class="fas fa-file-csv"></i> Export CSV
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-footer">
+                    <i class="fas fa-code"></i>
+                    <span>Powered by <strong>Extazy</strong> Development</span>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- MODAL DÉTAILS OPÉRATION -->
+    <div id="operationModal" class="modal">
+        <div class="modal-backdrop" onclick="closeModal()"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <i class="fas fa-info-circle"></i>
+                    <h2>Détails de l'opération</h2>
+                </div>
+                <span class="close" onclick="closeModal()">
+                    <i class="fas fa-times"></i>
+                </span>
+            </div>
+            <div class="modal-body" id="operationDetails"></div>
+            <div class="modal-footer">
+                <i class="fas fa-crown"></i>
+                <span>Extazy Bot System</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- PANNEAU DE NOTIFICATIONS -->
+    <div id="notificationsPanel" class="notifications-panel">
+        <div class="panel-header">
+            <h3><i class="fas fa-bell"></i> Notifications</h3>
+            <button onclick="toggleNotificationsPanel()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="panel-body" id="notificationsList">
+            <div class="notification-item unread">
+                <i class="fas fa-info-circle"></i>
+                <div>
+                    <strong>Bienvenue sur RASCA v3.0</strong>
+                    <p>Découvrez les nouvelles fonctionnalités !</p>
+                    <span class="notif-time">Il y a 1 minute</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- NOTIFICATIONS TOAST -->
+    <div id="notifications"></div>
+
+    <!-- Scripts -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
